@@ -42,7 +42,7 @@ Any option described here: https://github.com/mranney/node_redis#overloading can
 Feel free to modify server.js to get some of these options from the command line if appropriate (instead of having them hard-coded inside server.js).
 
 To test, you need to launch your Redis server (on the host and port you specified in storeOptions).
-Then you need to launch your SC server using:
+Then you need to launch your SC server using (make sure your Redis server is running before you launch your SC instance):
 
 ```bash
 node server
