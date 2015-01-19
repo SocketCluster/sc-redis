@@ -1,0 +1,27 @@
+{
+  "name": "sc-redis",
+  "version": "0.0.0",
+  "description": "Redis adapter for SocketCluster",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/topcloud/sc-redis.git"
+  },
+  "keywords": [
+    "redis",
+    "socketcluster",
+    "sc"
+  ],
+  "author": "Jonathan Gros-Dubois",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/topcloud/sc-redis/issues"
+  },
+  "homepage": "https://github.com/topcloud/sc-redis",
+  "dependencies": {
+    "redis": "0.12.1"
+  }
+}
