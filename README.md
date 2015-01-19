@@ -56,14 +56,16 @@ On the host on which your Redis server is running, you can interact with it usin
 ```bash
 redis-cli
 ```
- 
- Then inside the Redis prompt, you can enter:
- 
- ```bash
- publish pong 'o:{"a":123, "b":456}'
- ```
- 
- Note that SC-Redis messages always need to start with 'o:' (if the data is a JSON object) or 's:' (if data should be interpreted as a string).
+
+Then inside the Redis prompt, you can enter:
+
+```bash
+publish pong 'o:{"a":123, "b":456}'
+```
+
+You should see the object appear in your browser's developer console (from SocketCluster).
+
+Note that SC-Redis messages always need to start with 'o:' (if the data is a JSON object) or 's:' (if data should be interpreted as a string).
 
  
 ## Contributing
