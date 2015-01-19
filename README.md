@@ -38,7 +38,8 @@ var socketCluster = new SocketCluster({
 ```
 
 Note that SC-Redis uses the Node Redis client to hook into a Redis server.
-Any option described here: https://github.com/mranney/node_redis#overloading can be provided as a store option.
+Any option described here: https://github.com/mranney/node_redis#overloading can be provided as a store option - In production you may want to provide the 'password' property.
+
 Feel free to modify server.js to get some of these options from the command line if appropriate (instead of having them hard-coded inside server.js).
 
 To test, you need to launch your Redis server (on the host and port you specified in storeOptions).
@@ -71,7 +72,9 @@ Note that SC-Redis messages always need to start with 'o:' (if the data is a JSO
 ## Contributing
 
 SC-Redis is currently 'experimental'. It still needs a bit of polishing before you can use it in production.
-- Better error logging would be nice
+TODO:
+- Need a way to add an optional password.
+- Better error logging.
 - Reconnect behavior (after Redis client connection drops out) - Not sure if this is necessary or Node Redis client already does that automatically?
 - It needs to do something about invalid message formats (for example with missing 'o:' or 's:' at the beginning).
 
