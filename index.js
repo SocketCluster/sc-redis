@@ -2,6 +2,7 @@ var redis = require('redis');
 
 module.exports.attach = function (store) {
   var options = store.options;
+  var instanceId = store.instanceId;
   
   var subClient = redis.createClient(options.port, options.host, options);
   var pubClient = redis.createClient(options.port, options.host, options);
@@ -18,21 +19,39 @@ module.exports.attach = function (store) {
     } else {
       data = 's:' + data;
     }
+    
+    if (instanceId != null) {
+      data = instanceId + '/' + data;
+    }
+    
     pubClient.publish(channel, data);
   });
   
+  var instanceIdRegex = /^[^\/]*\//;
+  
   subClient.on('message', function (channel, message) {
-    var type = message.charAt(0);
-    var data;
-    if (type == 'o') {
-      try {
-        data = JSON.parse(message.slice(2));
-      } catch (e) {
+    var sender = null;
+    message = message.replace(instanceIdRegex, function (match) {
+      sender = match.slice(0, -1);
+      return '';
+    });
+    
+    // Do not publish if this message was published by 
+    // the current SC instance since it has already been
+    // handled internally
+    if (sender == null || sender != instanceId) {
+      var type = message.charAt(0);
+      var data;
+      if (type == 'o') {
+        try {
+          data = JSON.parse(message.slice(2));
+        } catch (e) {
+          data = message.slice(2);
+        }
+      } else {
         data = message.slice(2);
       }
-    } else {
-      data = message.slice(2);
+      store.publish(channel, data);
     }
-    store.publish(channel, data);
   });
 };
