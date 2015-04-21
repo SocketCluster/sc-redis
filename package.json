@@ -1,6 +1,6 @@
 {
   "name": "sc-redis",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Redis adapter for SocketCluster",
   "main": "index.js",
   "scripts": {
