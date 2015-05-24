@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/topcloud/sc-redis.git"
+    "url": "git://github.com/SocketCluster/sc-redis.git"
   },
   "keywords": [
     "redis",
@@ -18,9 +18,9 @@
   "author": "Jonathan Gros-Dubois",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/topcloud/sc-redis/issues"
+    "url": "https://github.com/SocketCluster/sc-redis/issues"
   },
-  "homepage": "https://github.com/topcloud/sc-redis",
+  "homepage": "https://github.com/SocketCluster/sc-redis",
   "dependencies": {
     "redis": "0.12.1"
   }
