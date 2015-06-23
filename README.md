@@ -73,10 +73,9 @@ Note that SC-Redis messages always need to start with 'o:' (if the data is a JSO
 
 SC-Redis is currently 'experimental'. It still needs a bit of polishing before you can use it in production.
 TODO:
-- Need a way to add an optional password.
-- Better error logging.
+- Better error logging (capture errors from Redis client and emit 'error' on store object?)
 - Reconnect behavior (after Redis client connection drops out) - Not sure if this is necessary or Node Redis client already does that automatically?
-- It needs to do something about invalid message formats (for example with missing 'o:' or 's:' at the beginning).
+- Synchronize data with Redis - Not just pub/sub channels - Will need to make changes to nData (https://github.com/SocketCluster/ndata) to make this possible.
 
 Pull requests are welcome.
  
