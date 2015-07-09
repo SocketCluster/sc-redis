@@ -1,27 +1,27 @@
 var redis = require('redis');
 
 module.exports.attach = function (store) {
-  var options = store.options;
+  var storeOptions = store.options.storeOptions;
   var instanceId = store.instanceId;
   
-  var subClient = redis.createClient(options.port, options.host, options);
-  var pubClient = redis.createClient(options.port, options.host, options);
+  var subClient = redis.createClient(storeOptions.port, storeOptions.host, storeOptions);
+  var pubClient = redis.createClient(storeOptions.port, storeOptions.host, storeOptions);
   
   store.on('subscribe', subClient.subscribe.bind(subClient));
   store.on('unsubscribe', subClient.unsubscribe.bind(subClient));
   store.on('publish', function (channel, data) {
     if (data instanceof Object) {
       try {
-        data = 'o:' + JSON.stringify(data);
+        data = '/o:' + JSON.stringify(data);
       } catch (e) {
-        data = 's:' + data;
+        data = '/s:' + data;
       }
     } else {
-      data = 's:' + data;
+      data = '/s:' + data;
     }
     
     if (instanceId != null) {
-      data = instanceId + '/' + data;
+      data = instanceId + data;
     }
     
     pubClient.publish(channel, data);
