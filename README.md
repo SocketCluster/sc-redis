@@ -2,7 +2,7 @@ SC-Redis
 ======
 
 This is a Redis adaptor for SocketCluster: http://socketcluster.io/
-It allows you to interact with SocketCluster channels via Redis.
+It allows you to interact with SocketCluster channels via Redis and vice-versa.
 
 ## Install
 
