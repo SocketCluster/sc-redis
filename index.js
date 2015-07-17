@@ -1,15 +1,15 @@
 var redis = require('redis');
 
-module.exports.attach = function (store) {
-  var storeOptions = store.options.storeOptions;
-  var instanceId = store.instanceId;
+module.exports.attach = function (broker) {
+  var brokerOptions = broker.options.brokerOptions;
+  var instanceId = broker.instanceId;
   
-  var subClient = redis.createClient(storeOptions.port, storeOptions.host, storeOptions);
-  var pubClient = redis.createClient(storeOptions.port, storeOptions.host, storeOptions);
+  var subClient = redis.createClient(brokerOptions.port, brokerOptions.host, brokerOptions);
+  var pubClient = redis.createClient(brokerOptions.port, brokerOptions.host, brokerOptions);
   
-  store.on('subscribe', subClient.subscribe.bind(subClient));
-  store.on('unsubscribe', subClient.unsubscribe.bind(subClient));
-  store.on('publish', function (channel, data) {
+  broker.on('subscribe', subClient.subscribe.bind(subClient));
+  broker.on('unsubscribe', subClient.unsubscribe.bind(subClient));
+  broker.on('publish', function (channel, data) {
     if (data instanceof Object) {
       try {
         data = '/o:' + JSON.stringify(data);
@@ -51,7 +51,7 @@ module.exports.attach = function (store) {
       } else {
         data = message.slice(2);
       }
-      store.publish(channel, data);
+      broker.publish(channel, data);
     }
   });
 };
