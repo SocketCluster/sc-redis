@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/SocketCluster/sc-redis",
   "dependencies": {
-    "redis": "0.12.1"
+    "redis": "2.4.x"
   }
 }
