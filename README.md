@@ -6,7 +6,7 @@ It allows you to interact with SocketCluster channels via Redis and vice-versa.
 
 This module is useful if you have a simple setup on a single host and just want to be able to synchronize pub/sub channels between SC and Redis - So if you publish a message to a channel in Redis, clients connected to SC which are subscribed to that channel will also get the message.
 
-This is not an ideal solution for scaling SC horizontally (unless you can modify it to work with Redis Cluster maybe). The recommended approach for scaling SC horizontally is now SCC https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md.
+This is not an ideal solution for scaling SC horizontally (unless you can modify it to work with Redis Cluster maybe). The recommended approach for scaling SC horizontally is now SCC https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md
 
 ## Install
 
