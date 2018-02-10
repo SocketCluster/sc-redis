@@ -1,12 +1,35 @@
-var redis = require('redis');
+const redis = require('redis');
+const assert = require('assert');
 
-module.exports.attach = function (broker) {
-  var brokerOptions = broker.options.brokerOptions;
-  var instanceId = broker.instanceId;
-  
-  var subClient = redis.createClient(brokerOptions.port, brokerOptions.host, brokerOptions);
-  var pubClient = redis.createClient(brokerOptions.port, brokerOptions.host, brokerOptions);
-  
+function assertBrokerOptions (brokerOptions) {
+  assert(brokerOptions, '"brokerOptions" is required to create a Redis client with sc-redis');
+  assert(brokerOptions.host, '"brokerOptions.host" is required to create a Redis client with sc-redis');
+  assert(brokerOptions.port, '"brokerOptions.port" is required to create a Redis client with sc-redis');
+}
+
+function throwMissingRedisClientError (clientName) {
+  throw new Error('Missing "' + clientName + '" option. Both "pubClient" and "subClient" must be specified if passing your own clients.');
+}
+
+module.exports.attach = function (broker, options) {
+  options = options || {}
+
+  const instanceId = broker.instanceId;
+  var subClient = options.subClient;
+  var pubClient = options.pubClient;
+
+  if (!subClient && !pubClient) {
+    const brokerOptions = broker.options.brokerOptions;
+    assertBrokerOptions(brokerOptions);
+
+    subClient = redis.createClient(brokerOptions.port, brokerOptions.host, brokerOptions);
+    pubClient = redis.createClient(brokerOptions.port, brokerOptions.host, brokerOptions);
+  } else if (!subClient && pubClient) {
+    throwMissingRedisClientError("subClient");
+  } else if (subClient && !pubClient) {
+    throwMissingRedisClientError("pubClient");
+  }
+
   broker.on('subscribe', subClient.subscribe.bind(subClient));
   broker.on('unsubscribe', subClient.unsubscribe.bind(subClient));
   broker.on('publish', function (channel, data) {
