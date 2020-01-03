@@ -74,7 +74,9 @@ module.exports.attach = function (broker, options) {
       } else {
         data = message.slice(2);
       }
-      broker.publish(channel, data);
+      broker.publish(channel, {
+        messages: [data]
+      });
     }
   });
 };
